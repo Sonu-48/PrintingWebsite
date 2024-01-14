@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Homelayout } from "./Homelayout"
 import Contactus from "./pages/Home/Contact/Contactus"
-import Singleproduct from "./pages/Home/feturedproduct/Singleproduct"
+import Singleproduct from "./pages/Home/feturedproduct/Singleproduct";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       <Route exact path="/" element={<Homelayout/>}/>
       <Route exact path="/contact" element={<Contactus/>}/>
      </Routes>
+     <ToastContainer/>
      </BrowserRouter>
     </>
   )

@@ -50,6 +50,13 @@ export const theme= createTheme({
               }
             }
           }
+        },
+        MuiBadge:{
+          styleOverrides:{
+            badge:{
+              background:'#ff5151'
+            }
+          }
         }
       },
 

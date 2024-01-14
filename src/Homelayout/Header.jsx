@@ -7,6 +7,7 @@ import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addtocart } from "../Redux/CartSlice";
+import Cartcomponent from "../components/Cartcomponent";
 
 
 const Headersection = styled('div')({
@@ -58,20 +59,24 @@ const drawerWidth = 240;
 function Header() {
     const [open, setOpen] = useState(false);
     const [openaccount, setOpenaccount] = useState(false);
+    const [opencart,setOpencart]  = useState(false);
     const dispatch= useDispatch();
     const cartdata = useSelector((state) => state.cart);
+    // const cartcount=parseInt(cartdata.length);
+    // const quantity = cartdata.length > 0 ? cartdata[0].quantity : 0;
+    const quantity = cartdata.reduce((total, item) => total + item.quantity, 0);
 
-    useEffect(()=>{
-       dispatch(( addtocart()));
-    },[])
-    return (
+    // useEffect(()=>{
+    //    dispatch(( addtocart()));
+    // },[])
+    return ( 
         <Headersection>
             <Container>
                 <AppBar sx={{ background: 'transparent', position: 'relative', boxShadow: 'none' }}>
                     <Toolbar sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Box>
+                        <Link to="/">
                             <img src="/images/logo.svg" alt="logo" />
-                        </Box>
+                        </Link>
 
                         <LinkBox sx={{ display: { lg: 'block', md: 'block', sm: 'none', xs: 'none' } }}>
                             <NavLink to="/" >Home</NavLink>
@@ -93,25 +98,25 @@ function Header() {
                             </Link>
 
 
-                            <NavLink to="/cart">
-                                <Badge color="secondary" badgeContent={cartdata?.length}>
+                            <IconButton sx={{background:'transparent'}} onClick={()=>setOpencart(true)}>
+                                <Badge color="secondary" badgeContent={quantity}>
                                     <RiShoppingBasketFill color="#ff3f26" style={{ fontSize: '20px' }} />
 
                                 </Badge>
-                                {/* <span>{cartdata.length}</span> */}
-                            </NavLink>
+                            </IconButton>
                             
 
                         </LinkBox>
                         {/* add to cart */}
                         <Box sx={{ display: { lg: 'none', md: 'none', sm: 'block', xs: 'block' } }}>
-                            <NavLink to="/cart">
-                                <Badge color="secondary" badgeContent={0}>
+                            
+                        <IconButton sx={{background:'transparent'}} onClick={()=>setOpencart(true)}>
+                                <Badge color="secondary" badgeContent={quantity}>
                                     <RiShoppingBasketFill color="#ff3f26" style={{ fontSize: '20px' }} />
 
                                 </Badge>
-                                {/* <span >0</span> */}
-                            </NavLink>
+                            </IconButton>
+                            
                         </Box>
                         {/* mobile menu */}
                         <Box sx={{ display: { lg: 'none', md: 'none', sm: 'block', xs: 'block' } }}>
@@ -189,6 +194,7 @@ function Header() {
                     </Box>
                 </Drawer>
             </Container>
+            <Cartcomponent opencart={opencart} setOpencart={setOpencart}/>
         </Headersection>
     );
 }
