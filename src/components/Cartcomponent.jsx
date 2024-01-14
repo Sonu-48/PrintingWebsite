@@ -42,6 +42,9 @@ const CartFooter= styled('div')({
         borderTop:'1px solid #dddddd',
         borderBottom:'1px solid #dddddd',
         padding:'10px 20px',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'space-between',
     },
     ".btn":{
         padding:'10px 20px',
@@ -52,9 +55,14 @@ const drawerWidth=480;
 function Cartcomponent({opencart,setOpencart}) {
 
     const cartdata = useSelector((state)=>state.cart);
-    const quantity = cartdata.length > 0 ? cartdata[0].quantity : 0;
+    // const quantity = cartdata.length > 0 ? cartdata[0].quantity : 0;
 
     const dispatch= useDispatch();
+      // Calculate overall subtotal
+      const overallSubtotal = cartdata.reduce(
+        (subtotal, item) => subtotal + item.quantity * item.price,
+        0
+    );
 
     // useEffect(()=>{
     //     dispatch(addtocart())
@@ -120,6 +128,8 @@ function Cartcomponent({opencart,setOpencart}) {
                 <CartFooter>
                         <Box className="total-price">
                             <Typography variant="h5">Subtotal:</Typography>
+                            <Typography variant="h5">£{overallSubtotal.toFixed(2)}</Typography>
+
                         </Box>
                         <Box className="btn">
                             <Button variant="contained" fullWidth>VIEW CART</Button>
