@@ -63,10 +63,6 @@ function Cartcomponent({opencart,setOpencart}) {
         (subtotal, item) => subtotal + item.quantity * item.price,
         0
     );
-
-    // useEffect(()=>{
-    //     dispatch(addtocart())
-    // },[dispatch])
     return (
         <Box>
             <Drawer
